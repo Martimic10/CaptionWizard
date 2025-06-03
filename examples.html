@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaptionWizard - Examples</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Caption<span>Wizard</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#how">How It Works</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a class="unlock-btn" href="#unlock">Unlock Unlimited</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <h1 class="hero-title">See What <span class="gradient-text">CaptionWizard</span> Can Create</h1>
+    <p>Browse through real examples of AI-generated captions for different content types. From travel adventures to product launches, get inspired by what CaptionWizard can do for your social media.</p>
+  </header>
+
+  <section class="tabs">
+    <div class="hero-buttons">
+      <button class="secondary-btn" id="tab-travel">🌍 Travel</button>
+      <button class="secondary-btn" id="tab-fitness">💪 Fitness</button>
+      <button class="secondary-btn" id="tab-product">🛍️ Product</button>
+      <button class="secondary-btn" id="tab-lifestyle">📸 Lifestyle</button>
+      <button class="secondary-btn" id="tab-all">Show All</button>
+    </div>
+  </section>
+
+  <section class="examples-display">
+    <div class="example-cards">
+      <div class="card" data-category="travel">
+        <p class="topic">Prompt: Beach vacation relaxation</p>
+        <h4>Generated Captions:</h4>
+        <ul>
+          <li>Salt in the air, sand in my hair. This is my happy place.</li>
+          <li>Ocean therapy session in progress. Do not disturb.</li>
+          <li>Let the waves hit your feet and the sand be your seat. Paradise found.</li>
+        </ul>
+        <p><strong>Suggested Hashtags:</strong><br>#beachlife #vacationmode #coastalliving #saltytherapy #sunsetbeach</p>
+        <p><strong>Emoji-Enhanced Version:</strong><br>Salt in the air, sand in my hair 🏖️🌊 No emails, no calls, just vitamin SEA for the next few days! 🌞🍹 Pure bliss! #beachtherapy</p>
+      </div>
+
+      <div class="card" data-category="travel">
+        <p class="topic">Prompt: Mountain sunset hike</p>
+        <h4>Generated Captions:</h4>
+        <ul>
+          <li>Chasing sunsets and climbing mountains. Today’s view was worth every step. 🏔️</li>
+          <li>Found my peace at the peak. Nothing compares to the stillness of a mountain sunset. ✨</li>
+          <li>The higher we climb, the better the view. This sunset rewrote my definition of breathtaking.</li>
+        </ul>
+        <p><strong>Suggested Hashtags:</strong><br>#mountainviews #hikingadventures #sunsetlovers #naturehealing #outdoorlife</p>
+        <p><strong>Emoji-Enhanced Version:</strong><br>Conquered another peak today! 🏔️ The climb was tough but this sunset view? Absolutely MAGICAL! ✨🌄 My soul feels recharged just breathing in this mountain air. Who else finds their peace on the trail?🥾💫</p>
+      </div>
+
+      <div class="card" data-category="product">
+        <p class="topic">Prompt: New product launch</p>
+        <h4>Generated Captions:</h4>
+        <ul>
+          <li>Big news! Our latest product is here and it’s going to change the game.</li>
+          <li>It’s finally live. After months of work, our product is now available for YOU.</li>
+          <li>Designed with creators in mind — meet the tool that will transform your content strategy.</li>
+        </ul>
+        <p><strong>Suggested Hashtags:</strong><br>#newrelease #productlaunch #buildinpublic #creatorlife</p>
+        <p><strong>Emoji-Enhanced Version:</strong><br>🎉 Launch day is here! Our newest creation is live and built for YOU. Let’s grow together. 💡🚀</p>
+      </div>
+
+      <div class="card" data-category="lifestyle">
+        <p class="topic">Prompt: Morning coffee routine</p>
+        <h4>Generated Captions:</h4>
+        <ul>
+          <li>Slow mornings + coffee = peace ☕</li>
+          <li>Little rituals make the biggest difference. What’s your go-to morning start?</li>
+          <li>This mug holds more than coffee — it holds intention. 🌄</li>
+        </ul>
+        <p><strong>Suggested Hashtags:</strong><br>#coffeetime #mindfulmornings #selfcare #dailyhabit</p>
+        <p><strong>Emoji-Enhanced Version:</strong><br>☕ Nothing beats starting the day with a warm cup of clarity. #coffeelover #mindfulstart</p>
+      </div>
+    </div>
+  </section>
+
+<section class="cta">
+  <h2>Ready to Create Your Own <span class="gradient-text">Viral Captions</span>?</h2>
+  <a class="primary-btn" href="index.html#generate">Try For Free</a>
+  <p class="subtext">No signup required · Try 2 captions free · Unlock unlimited for just $19</p>
+</section>
+
+  <footer>
+    <a href="index.html" class="footer-left">Caption<span>Wizard</span></a>
+    <div class="footer-right">
+      <div class="footer-column">
+        <p>Product</p>
+        <a href="index.html#">Features</a>
+        <a href="examples.html">Examples</a>
+        <a href="index.html#">Pricing</a>
+      </div>
+      <div class="footer-column">
+        <p>Support</p>
+        <a href="#">FAQ</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tabs button');
+    const cards = document.querySelectorAll('.card');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.id.replace('tab-', '');
+        cards.forEach(card => {
+          if (id === 'all' || card.dataset.category === id) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
