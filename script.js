@@ -9,7 +9,7 @@ updateUsageUI();
 
 async function handleGenerate(type) {
   if (!isUnlocked && usage >= 2) {
-    outputDiv.innerText = "⚠️ You’ve used your 2 free generations.";
+    outputDiv.innerText = "You’ve used your 2 free generations.";
     lockedNotice.style.display = "block";
     return;
   }
@@ -20,50 +20,54 @@ async function handleGenerate(type) {
     return;
   }
 
-  outputDiv.innerHTML = "<p>Generating... ✨</p>";
+  outputDiv.innerHTML = `<p>Generating your ${type}...</p>`;
 
   try {
     const response = await fetch("http://localhost:3000/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt, type })
+      body: JSON.stringify({ prompt, type }),
     });
 
     const data = await response.json();
 
-    if (!data.result) {
-      outputDiv.innerHTML = "<p>❌ Failed to generate result.</p>";
+    if (!data.captions || !Array.isArray(data.captions)) {
+      outputDiv.innerHTML = `<p>❌ Failed to generate ${type}.</p>`;
       return;
     }
 
-    outputDiv.innerHTML = `
-      <div class="caption-card">
-        <div class="caption-row">
-          <h4>${capitalize(type)}</h4>
-          <div class="caption-actions">
-            <button onclick="copyToClipboard('${data.result.replace(/'/g, "\\'")}')">Copy</button>
-            <button>Like</button>
-            <button>Dislike</button>
+    let html = `<h3>Your ${capitalize(type)} Results</h3>`;
+    data.captions.forEach((item, index) => {
+      html += `
+        <div class="caption-card">
+          <div class="caption-row">
+            <h4>${capitalize(type)} ${index + 1}</h4>
+            <div class="caption-actions">
+              <button onclick="copyToClipboard('${escapeQuotes(item)}')">Copy</button>
+            </div>
           </div>
+          <div class="caption-text">${item}</div>
         </div>
-        <div class="caption-text">${data.result}</div>
-      </div>
-    `;
+      `;
+    });
+
+    outputDiv.innerHTML = html;
 
     if (!isUnlocked) {
       usage++;
       localStorage.setItem("captionUsage", usage);
       updateUsageUI();
     }
+
   } catch (error) {
-    console.error("Error:", error);
-    outputDiv.innerHTML = "<p>❌ Something went wrong. Try again.</p>";
+    console.error("Client error:", error);
+    outputDiv.innerHTML = `<p>❌ Something went wrong. Try again.</p>`;
   }
 }
 
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
-    alert("✅ Copied to clipboard!");
+    alert("Copied to clipboard!");
   });
 }
 
@@ -72,7 +76,8 @@ function updateUsageUI() {
     usageStatus.innerText = "✅ Unlimited captions unlocked!";
     lockedNotice.style.display = "none";
   } else {
-    usageStatus.innerText = `🆓 ${2 - usage} free generation${2 - usage === 1 ? "" : "s"} remaining`;
+    const remaining = 2 - usage;
+    usageStatus.innerText = `${remaining} free generation${remaining === 1 ? "" : "s"} remaining`;
     if (usage >= 2) {
       lockedNotice.style.display = "block";
     }
@@ -81,4 +86,8 @@ function updateUsageUI() {
 
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function escapeQuotes(text) {
+  return text.replace(/'/g, "\\'").replace(/"/g, "&quot;");
 }
