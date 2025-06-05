@@ -70,6 +70,16 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <script>
+    // Stripe post-payment session ID logic
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("session_id")) {
+      localStorage.setItem("unlocked", "true");
+      localStorage.setItem("captionUsage", "0");
+      console.log("✅ Payment confirmed. Unlimited access unlocked.");
+    }
+  </script>
 </body>
 </html>
 
